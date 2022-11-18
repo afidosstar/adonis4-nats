@@ -1,5 +1,5 @@
 'use strict';
-import { connect } from "nats";
+const  { connect } =  require("nats");
 const Client = require("./Client");
 class Manager {
   _promiseManager;
