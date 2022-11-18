@@ -27,7 +27,7 @@ Go to `start/app.js`
 ```js
 const providers = [
     ...,
-    '@fickou/adonis4-nats/providers/NatsProvider',
+    '@fickou/adonis4-nats/providers/NatsProvider'
 ]
 ```
 
@@ -82,9 +82,9 @@ Message {
 [typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
 [typescript-url]:  "typescript"
 
-[npm-image]: https://img.shields.io/npm/v/%40fickou%2Fadonis-controller-helpers.svg?style=for-the-badge&logo=npm
-[npm-url]: https://www.npmjs.com/package/adonis-request-throttler "npm"
+[npm-image]: https://img.shields.io/npm/v/%40fickou%2Fadonis4-nats.svg?style=for-the-badge&logo=npm
+[npm-url]: https://www.npmjs.com/package/%40fickou%2Fadonis4-nats "npm"
 
-[license-image]: https://img.shields.io/npm/l/%40fickou%2Fadonis-controller-helpers?color=blueviolet&style=for-the-badge
+[license-image]: https://img.shields.io/npm/l/%40fickou%2Fadonis4-nats?color=blueviolet&style=for-the-badge
 [license-url]: LICENSE.md "license"
 
