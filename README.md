@@ -68,7 +68,7 @@ client.subscribe("eventName", function (message) {
 })
 ```
 
-### Message interface
+## Message interface
 
 ````txt
 Message {
@@ -77,6 +77,38 @@ Message {
     sub: Subscription//go to nats docs
 }
 ````
+
+## How to use nats ?
+
+docker user:
+
+create `nats-cluster.yaml`
+```yml
+version: "3.5"
+services:
+  nats:
+    image: nats
+    ports:
+      - "8222:8222"
+      - "4222:4222"
+    command: "--cluster_name nats --cluster nats://0.0.0.0:6222 --http_port 8222 "
+    networks: ["nats"]
+    volumes:
+      - natsData:/data
+networks:
+  nats:
+    name: nats
+```
+
+run :
+
+````bash
+docker  docker compose -f nats-cluster.yaml up -d
+````
+
+[more..](https://docs.nats.io/)
+
+
 
 
 
