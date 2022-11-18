@@ -36,8 +36,8 @@ in service who you want to use
 ```js
 try {
    const data={...};
-    const Client = use("Adonis/Nats/Client");
-    await Client.publish(`eventName`, data)
+    const client = use("NatsClient");
+    await client.publish(`eventName`, data)
 }catch (e){}
 ```
 
@@ -62,6 +62,7 @@ new Ignitor(require('@adonisjs/fold'))
 After got to `start/nats.js`
 
 ```js
+const client = use("NatsClient");
 client.subscribe("eventName", function (message) {
     console.log(message);
 })
