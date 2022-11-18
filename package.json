@@ -1,0 +1,18 @@
+{
+  "name": "adonis4-nats",
+  "version": "1.0.0",
+  "description": "adonis nats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@adonisjs/ace": "^5.0.1",
+    "@adonisjs/fold": "^4.0.7",
+    "@adonisjs/framework": "^5.0.6",
+    "japa": "^1.0.6",
+    "japa-cli": "^1.0.1"
+  }
+}
