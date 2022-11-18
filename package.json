@@ -1,12 +1,24 @@
 {
-  "name": "adonis4-nats",
+  "name": "@fickou/adonis4-nats",
   "version": "1.0.0",
   "description": "adonis nats",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "AYEDOUN Dossou Fiacre",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afidosstar/adonis4-nats.git"
+  },
+  "keywords": [
+    "adonisjs",
+    "nats"
+  ],
   "license": "ISC",
   "devDependencies": {
     "@adonisjs/ace": "^5.0.1",
@@ -14,5 +26,8 @@
     "@adonisjs/framework": "^5.0.6",
     "japa": "^1.0.6",
     "japa-cli": "^1.0.1"
+  },
+  "dependencies": {
+    "nats": "^2.9.0"
   }
 }

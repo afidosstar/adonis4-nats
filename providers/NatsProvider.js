@@ -1,25 +1,33 @@
 'use strict'
 
 /**
- * adonis-sophos
+ * adonis-nats
  *
- * (c) Caleb Mathew <creatrixity@gmail.com>
+ * (c) AYEDOUN Dossou Fiacre <fiacre.ayedoun@gmail.com>
  *
  */
 
 const { ServiceProvider } = require('@adonisjs/fold')
 
-class SophosProvider extends ServiceProvider {
+class NatsProvider extends ServiceProvider {
     register () {
-        this.app.singleton('Adonis/Addons/Sophos', (app) => {
+        this.app.singleton('Adonis/Addons/Nats/Manager', (app) => {
             const Config = app.use('Adonis/Src/Config')
-            const Sophos = require('../src/Sophos')
+            const Manager = require('../src/Manager')
 
-            return new Sophos(Config)
+            return new Manager(Config.get('nats',{servers:['localhost']}));
         })
 
-        this.app.alias('Adonis/Addons/Sophos', 'Sophos')
+        this.app.alias('Adonis/Addons/Nats/Manager', 'NatsManager')
+    }
+    async boot() {
+        const manager = this.app.use("Adonis/Addons/Nats/Manager");
+        await manager.wait;
+        await this.app.bind("Adonis/Addons/Nats/Client", () => {
+            return manager.getClient();
+        });
+        this.app.alias('Adonis/Addons/Nats/Manager', 'NatsClient')
     }
 }
 
-module.exports = SophosProvider
+module.exports = NatsProvider

@@ -1,12 +1,12 @@
 # Installation
 Run:
 ```bash
-npm i --save @fickou/adonis-nats
+npm i --save @fickou/adonis4-nats
 ```
 
 Install provider:
 ```bash
-node ace configure @fickou/adonis-nats
+node ace configure @fickou/adonis4-nats
 ```
 ## Docs
 
