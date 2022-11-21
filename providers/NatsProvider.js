@@ -26,7 +26,7 @@ class NatsProvider extends ServiceProvider {
         await this.app.bind("Adonis/Addons/Nats/Client", () => {
             return manager.getClient();
         });
-        this.app.alias('Adonis/Addons/Nats/Manager', 'NatsClient')
+        this.app.alias('Adonis/Addons/Nats/Client', 'NatsClient')
     }
 }
 
