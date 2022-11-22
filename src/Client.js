@@ -10,7 +10,7 @@ const { JSONCodec } = require("nats");
 
   async publish(namespace, message,autoFlush) {
     if (!this._manager.isConnected) return;
-    this._manager.server.publish(namespace, this.sc.encode(message));
+    this._manager.server.publish(namespace, this._sc.encode(message));
     if (autoFlush) await this._manager.server.flush();
   }
   async flush() {
