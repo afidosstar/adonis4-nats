@@ -22,11 +22,14 @@ class NatsProvider extends ServiceProvider {
     }
     async boot() {
         const manager = this.app.use("Adonis/Addons/Nats/Manager");
-        await manager.wait;
         await this.app.bind("Adonis/Addons/Nats/Client", () => {
             return manager.getClient();
         });
         this.app.alias('Adonis/Addons/Nats/Client', 'NatsClient')
+    }
+    async ready(){
+        const manager = this.app.use("Adonis/Addons/Nats/Manager");
+        await manager.wait;
     }
 }
 

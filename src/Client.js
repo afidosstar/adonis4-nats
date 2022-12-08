@@ -3,36 +3,62 @@ const { JSONCodec } = require("nats");
 
  class Client {
     _sc = new JSONCodec();
+    _autoFlush = true;
   constructor( manager) {
     this._manager = manager
   }
 
 
-  async publish(namespace, message,autoFlush) {
-    if (!this._manager.isConnected) return;
+  async publish(namespace, message) {
+      await this._connect();
     this._manager.server.publish(namespace, this._sc.encode(message));
-    if (autoFlush) await this._manager.server.flush();
+    if (this._autoFlush) await this._manager.server.flush();
   }
+
+     /**
+      *
+      * @param {Function} fn
+      * @returns {Promise<*>}
+      */
+  async all(fn){
+      this._autoFlush = false;
+      let result = null;
+      if(typeof fn !== "function") {
+          result = fn.call(this)
+      }
+      this._autoFlush = true;
+      await this._manager.server.flush()
+      return result;
+  }
+
   async flush() {
     if (!this._manager.isConnected) return;
     await this._manager.server.flush();
   }
-  subscribe(namespace, fn) {
-    if (!this._manager.isConnected) return;
+  async _connect(){
+      if (this._manager.isWaiting){
+          await this._manager.wait();
+      }
+      if (!this._manager.isConnected){
+          await this._manager.connect(true);
+      }
+  }
+  async subscribe(namespace, fn) {
+      await this._connect();
     if (typeof fn !== "function") {
       throw new Error('"fn" must be a function');
     }
     const sub = this._manager.server.subscribe(namespace);
     // eslint-disable-next-line @typescript-eslint/no-shadow
     (async (sub) => {
-      for await (const message of sub) {
-        try {
-          return fn(new Message(message, this._sc, sub));
-        } catch (error) {
-          console.error("NatsProvider:client:Error", error);
+        for await (const message of sub) {
+            try {
+                return fn(new Message(message, this._sc, sub));
+            } catch (error) {
+                console.error("NatsProvider:client:Error", error);
+            }
         }
-      }
-    })(sub);
+    })(sub).then();
     return sub;
   }
 }

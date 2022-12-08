@@ -21,5 +21,7 @@ module.exports = {
     | The URL of the resource queried for data.
     |
     */
+
+
     servers: Env.get('NATS_SERVERS','localhost').split(',').map(e => e.trim()),
 }

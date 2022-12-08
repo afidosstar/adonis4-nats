@@ -63,7 +63,7 @@ After got to `start/nats.js`
 
 ```js
 const client = use("NatsClient");
-client.subscribe("eventName", function (message) {
+await client.subscribe("eventName", function (message) {
     console.log(message);
 })
 ```
