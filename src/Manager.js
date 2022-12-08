@@ -15,7 +15,7 @@ class Manager {
   }
   constructor(options) {
     this._options = options;
-    this.connect(false);
+    //this.connect(false);
   }
   connect(throwError = false){
     this._promiseManager = connect(this._options)
