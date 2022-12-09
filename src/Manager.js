@@ -4,7 +4,7 @@ const Client = require("./Client");
 class Manager {
   _promiseManager;
   _manager;
-  _waiting = true;
+  _waiting = false;
   _isConnected = false;
   _error = false;
   get wait() {
@@ -18,7 +18,8 @@ class Manager {
     //this.connect(false);
   }
   connect(throwError = false){
-    this._promiseManager = connect(this._options)
+    this._waiting = true;
+    return this._promiseManager = connect(this._options)
         .then((res) => {
           this._manager = res;
           this._error = false;

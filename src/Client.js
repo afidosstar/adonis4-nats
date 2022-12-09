@@ -37,7 +37,7 @@ const { JSONCodec } = require("nats");
   }
   async _connect(){
       if (this._manager.isWaiting){
-          await this._manager.wait();
+          await this._manager.wait;
       }
       if (!this._manager.isConnected){
           await this._manager.connect(true);
