@@ -40,7 +40,7 @@ const { JSONCodec } = require("nats");
           await this._manager.wait;
       }
       if (!this._manager.isConnected){
-          await this._manager.connect(true);
+          await this._manager.connect(false);
       }
   }
   async subscribe(namespace, fn,fnError) {
