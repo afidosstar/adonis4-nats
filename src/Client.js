@@ -43,7 +43,7 @@ const { JSONCodec } = require("nats");
           await this._manager.connect(true);
       }
   }
-  async subscribe(namespace, fn) {
+  async subscribe(namespace, fn,fnError) {
       await this._connect();
     if (typeof fn !== "function") {
       throw new Error('"fn" must be a function');
@@ -53,12 +53,14 @@ const { JSONCodec } = require("nats");
     (async (sub) => {
         for await (const message of sub) {
             try {
-                return fn(new Message(message, this._sc, sub));
+                 const promise = fn.call(this,new Message(message, this._sc, sub));
+                 if(promise instanceof Promise) await promise;
             } catch (error) {
+                if(fnError && typeof fnError === "function") fnError(error);
                 console.error("NatsProvider:client:Error", error);
             }
         }
-    })(sub).then();
+    })(sub).catch(fnError && typeof fnError === "function" ? fnError : console.error);
     return sub;
   }
 }
